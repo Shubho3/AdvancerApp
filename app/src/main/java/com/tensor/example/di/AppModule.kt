@@ -16,18 +16,25 @@
 package com.tensor.example.di
 
 import android.content.Context
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.tensor.example.data.fireatstore.FireAtStoreConstants.USERS
+import com.tensor.example.data.fireatstore.repo.UsersRepositoryImpl
+import com.tensor.example.data.fireatstore.repository.UserRepository
+import com.tensor.example.data.fireatstore.use_case.AddUser
+import com.tensor.example.data.fireatstore.use_case.DeleteUser
+import com.tensor.example.data.fireatstore.use_case.GetSingleUser
+import com.tensor.example.data.fireatstore.use_case.GetUsers
+import com.tensor.example.data.fireatstore.use_case.UseCases
 import com.tensor.example.data.local.db.AppDatabase
 import dagger.Module
-import dagger.hilt.components.SingletonComponent
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-/**
- * Defines all the classes that need to be provided in the scope of the app.
- * If they are singleton mark them as '@Singleton'.
- */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -36,4 +43,22 @@ object AppModule {
     @Provides
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase =
         AppDatabase.buildDatabase(context)
+
+    @Provides
+    fun provideBooksRef() = Firebase.firestore.collection(USERS)
+
+    @Provides
+    fun provideBooksRepository(
+        booksRef: CollectionReference
+    ): UserRepository = UsersRepositoryImpl(booksRef)
+
+    @Provides
+    fun provideUseCases(
+        repo: UserRepository
+    ) = UseCases(
+        getUsers = GetUsers(repo),
+        adduser = AddUser(repo),
+        deleteUser = DeleteUser(repo),
+        getSingleUser = GetSingleUser(repo)
+    )
 }

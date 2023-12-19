@@ -15,10 +15,36 @@
 */
 package com.tensor.example.ui.profile
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.tensor.example.data.fireatstore.model.Response
+import com.tensor.example.data.fireatstore.model.User
+import com.tensor.example.data.fireatstore.repository.UserResponse
+import com.tensor.example.data.fireatstore.use_case.UseCases
 import com.tensor.example.ui.base.BaseViewModel
+import com.tensor.example.utils.ResourceHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor() : BaseViewModel() {
+class ProfileViewModel @Inject constructor(private val resourceHelper: ResourceHelper,
+                                           private val useCases: UseCases
+
+) : BaseViewModel() {
+
+    var getuserRes = MutableLiveData<UserResponse>()
+
+    fun getSingleUser(user : String) = viewModelScope.launch {
+        Timber.tag(":").e("getUser: %s", user)
+        Timber.tag(":").e("getuserRes: %s",   getuserRes.value)
+
+        getuserRes.value = useCases.getSingleUser(user)
+
+    }
+
+
 }

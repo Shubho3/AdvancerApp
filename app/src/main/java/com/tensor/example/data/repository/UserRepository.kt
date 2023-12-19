@@ -17,7 +17,7 @@ package com.tensor.example.data.repository
 
 import com.tensor.example.data.remote.ApiService
 import com.tensor.example.data.remote.apiresult.ApiResult
-import com.tensor.example.data.remote.response.UserResponse
+import com.tensor.example.data.remote.response.ApiUserResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,13 +25,13 @@ interface UserRepository {
     /**
      * Loads [List] of [UserResponse]
      */
-    suspend fun loadUsers(page: Int = 1): ApiResult<UserResponse>
+    suspend fun loadUsers(page: Int = 1): ApiResult<ApiUserResponse>
 }
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : UserRepository {
-    override suspend fun loadUsers(page: Int): ApiResult<UserResponse> =
+    override suspend fun loadUsers(page: Int): ApiResult<ApiUserResponse> =
         apiService.loadUsers(page)
 }

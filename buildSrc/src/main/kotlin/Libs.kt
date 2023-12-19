@@ -74,6 +74,7 @@ object Libs {
     // Firebase
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
     const val FIREBASE_AUTH_KTX = "com.google.firebase:firebase-auth-ktx"
+    const val FIREBASE_FIRE_STORE = "com.google.firebase:firebase-firestore-ktx:${Versions.FIRE_STORE}"
 
     // Sdp/Ssp
     const val INTUIT_SDP = "com.intuit.sdp:sdp-android:${Versions.INTUIT_SDP}"

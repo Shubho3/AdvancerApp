@@ -32,6 +32,10 @@ fun Fragment.showDialogFragment(dialogFragment: DialogFragment, init: Bundle.() 
     dialogFragment.show(parentFragmentManager, dialogFragment::class.java.simpleName)
 }
 
+fun Fragment.hideKeyBoard() {
+    requireActivity().hideKeyBoard()
+}
+
 /**
  * @receiver Context
  * @param options Bundle?
@@ -57,4 +61,6 @@ inline fun <reified T : Any> Fragment.launchActivity(options: Bundle? = null, no
     val intent = newIntent<T>(requireActivity())
     intent.init()
     startActivity(intent, options)
+
+
 }

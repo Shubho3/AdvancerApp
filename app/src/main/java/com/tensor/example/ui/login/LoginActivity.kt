@@ -36,13 +36,9 @@ import timber.log.Timber
 @AndroidEntryPoint
 class LoginActivity : BaseAppCompatActivity<ActivityLoginBinding, LoginViewModel>(),
     View.OnClickListener {
-
     private lateinit var auth: FirebaseAuth
-
     override val viewModel: LoginViewModel by viewModels()
-
     override fun getLayoutResId(): Int = R.layout.activity_login
-
     override fun initialize() {
         super.initialize()
         binding.clickHandler = this

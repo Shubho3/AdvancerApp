@@ -17,9 +17,9 @@ package com.tensor.example.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class UserResponse(
+data class ApiUserResponse(
     @SerializedName("results")
-    val results: List<User>,
+    val results: List<ApiUser>,
 
     @SerializedName("info")
     val info: Info

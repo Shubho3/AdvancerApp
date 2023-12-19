@@ -18,7 +18,7 @@ package com.tensor.example.ui.sample
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.tensor.example.data.remote.response.User
+import com.tensor.example.data.remote.response.ApiUser
 import com.tensor.example.data.repository.UserRepository
 import com.tensor.example.di.IoDispatcher
 import com.tensor.example.di.MainDispatcher
@@ -46,8 +46,8 @@ SampleViewModel @Inject constructor(
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
-    private val _onNewUserList = MutableLiveData<Event<List<User>>>()
-    val onNewUserList: LiveData<Event<List<User>>>
+    private val _onNewUserList = MutableLiveData<Event<List<ApiUser>>>()
+    val onNewUserList: LiveData<Event<List<ApiUser>>>
         get() = _onNewUserList
 
     private val _isLoadingPage = MutableLiveData<Boolean>()

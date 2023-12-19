@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * User API response.
  */
-data class User(
+data class ApiUser(
     @SerializedName("name")
     val name: Name = Name(),
 

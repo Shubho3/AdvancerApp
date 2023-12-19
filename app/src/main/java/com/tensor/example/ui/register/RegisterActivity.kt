@@ -17,9 +17,12 @@ package com.tensor.example.ui.register
 
 import INTENT_USER
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.tensor.example.R
 import com.tensor.example.databinding.ActivityRegisterBinding
@@ -37,11 +40,14 @@ class RegisterActivity : BaseAppCompatActivity<ActivityRegisterBinding, Register
     View.OnClickListener {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun initialize() {
         super.initialize()
         binding.clickHandler = this
         auth = Firebase.auth
+        firestore = Firebase.firestore
+
     }
 
     override val viewModel: RegisterViewModel by viewModels()
@@ -96,6 +102,23 @@ class RegisterActivity : BaseAppCompatActivity<ActivityRegisterBinding, Register
                     Timber.d("SIngup", "createUserWithEmail:success")
                     val user = auth.currentUser
                     Timber.d("User: $user");
+                    val postMap = com.tensor.example.data.fireatstore.model.User()
+                    postMap.email= viewModel.email.value!!
+                    postMap.password = viewModel.password.value!!
+                    postMap.userName = viewModel.userName.value!!
+                    postMap.bio = viewModel.shortBio.value!!
+                    postMap.image = viewModel.shortBio.value!!
+                    if (user != null) {
+                        postMap.id = user.uid
+                    }
+                    postMap.date = com.google.firebase.Timestamp.now()
+                   /* user?.uid?.let {
+                        firestore.collection("Users").document(it)
+                            .set(postMap).addOnSuccessListener {
+                        }.addOnFailureListener {
+                        }
+                    }*/
+                    viewModel.addUser(postMap)
                     launchActivityAndFinishAll<ProfileActivity> {
                         putExtra(INTENT_USER, user)
                     }

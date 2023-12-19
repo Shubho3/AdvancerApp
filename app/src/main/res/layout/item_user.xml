@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.tensor.example.data.remote.response.User" />
+            type="com.tensor.example.data.remote.response.ApiUser" />
 
     </data>
 

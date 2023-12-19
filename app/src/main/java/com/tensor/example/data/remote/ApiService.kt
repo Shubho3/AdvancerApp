@@ -16,7 +16,7 @@
 package com.tensor.example.data.remote
 
 import com.tensor.example.data.remote.apiresult.ApiResult
-import com.tensor.example.data.remote.response.UserResponse
+import com.tensor.example.data.remote.response.ApiUserResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -25,5 +25,5 @@ import retrofit2.http.Query
  */
 interface ApiService {
     @GET("?inc=name,location,picture,login&results=10&seed=abc")
-    suspend fun loadUsers(@Query("page") page: Int): ApiResult<UserResponse>
+    suspend fun loadUsers(@Query("page") page: Int): ApiResult<ApiUserResponse>
 }

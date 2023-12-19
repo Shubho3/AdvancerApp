@@ -17,17 +17,25 @@ package com.tensor.example.ui.register
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.tensor.example.R
+import com.tensor.example.data.fireatstore.model.Response
+import com.tensor.example.data.fireatstore.model.User
+import com.tensor.example.data.fireatstore.repository.AddUserResponse
+import com.tensor.example.data.fireatstore.use_case.UseCases
 import com.tensor.example.ui.base.BaseViewModel
 import com.tensor.example.utils.ResourceHelper
 import com.tensor.example.utils.validation.Validator.isValidEmail
 import com.tensor.example.utils.validation.Validator.isValidPassword
 import com.tensor.example.utils.validation.Validator.isValidPasswordAndConfirmPassword
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val resourceHelper: ResourceHelper) :
+class RegisterViewModel @Inject constructor(private val resourceHelper: ResourceHelper,
+                                            private val useCases: UseCases
+) :
     BaseViewModel() {
 
     var email = MutableLiveData<String>()
@@ -35,7 +43,7 @@ class RegisterViewModel @Inject constructor(private val resourceHelper: Resource
     var confirmPassword = MutableLiveData<String>()
     var userName = MutableLiveData<String>()
     var shortBio = MutableLiveData<String>()
-
+    var addUserResponse = MutableLiveData<AddUserResponse>()
     fun isFormValid(): Boolean {
         when {
             email.value?.trim().isNullOrEmpty() -> formValidationLiveData.value =
@@ -92,4 +100,9 @@ class RegisterViewModel @Inject constructor(private val resourceHelper: Resource
     )
 
     val formValidationLiveData = MutableLiveData<FormMessage>()
+
+    fun addUser(user : User) = viewModelScope.launch {
+        addUserResponse.value = Response.Loading
+        addUserResponse.value = useCases.adduser(user)
+    }
 }

@@ -29,10 +29,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val resourceHelper: ResourceHelper) :
     BaseViewModel() {
-
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
-
     fun isFormValid(): Boolean {
         when {
             email.value?.trim().isNullOrEmpty() -> formValidationLiveData.value =

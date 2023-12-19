@@ -73,6 +73,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
@@ -159,6 +160,7 @@ dependencies {
     // Firebase
     implementation(platform(Libs.FIREBASE_BOM))
     implementation(Libs.FIREBASE_AUTH_KTX)
+    implementation(Libs.FIREBASE_FIRE_STORE)
 
     // Unit testing
     testImplementation(Libs.JUNIT)
