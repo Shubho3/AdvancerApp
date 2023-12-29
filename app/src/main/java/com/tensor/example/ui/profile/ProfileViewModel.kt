@@ -39,11 +39,9 @@ class ProfileViewModel @Inject constructor(private val resourceHelper: ResourceH
     var getuserRes = MutableLiveData<UserResponse>()
 
     fun getSingleUser(user : String) = viewModelScope.launch {
+        getuserRes.value = useCases.getSingleUser(user)
         Timber.tag(":").e("getUser: %s", user)
         Timber.tag(":").e("getuserRes: %s",   getuserRes.value)
-
-        getuserRes.value = useCases.getSingleUser(user)
-
     }
 
 

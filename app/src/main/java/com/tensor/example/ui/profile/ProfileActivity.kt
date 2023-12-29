@@ -24,6 +24,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.tensor.example.R
+import com.tensor.example.data.fireatstore.model.Response
+import com.tensor.example.data.fireatstore.model.User
+import com.tensor.example.data.fireatstore.repository.UserResponse
 import com.tensor.example.databinding.ActivityProfileBinding
 import com.tensor.example.ui.base.BaseAppCompatActivity
 import com.tensor.example.ui.home.HomeActivity
@@ -40,6 +43,7 @@ class ProfileActivity : BaseAppCompatActivity<ActivityProfileBinding, ProfileVie
     View.OnClickListener {
 
     private var user: FirebaseUser? = null
+    private var userx: User? = null
 
     override val viewModel: ProfileViewModel by viewModels()
 
@@ -50,16 +54,36 @@ class ProfileActivity : BaseAppCompatActivity<ActivityProfileBinding, ProfileVie
         binding.clickHandler = this
         if (intent.extras?.containsKey(INTENT_USER) == true) {
             user = intent.extras?.getParcelable(INTENT_USER)
-            binding.user = user
-            user?.let { viewModel.getSingleUser(it.uid) }
-
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        userx.let { user?.uid?.let { it1 -> viewModel.getSingleUser(it1) } }
+
     }
     override fun setupViewModel() {
         super.setupViewModel()
-        viewModel.getuserRes.observe(this@ProfileActivity , Observer {
-            Timber.tag("TAG").e("ProfileActivityProfileActivity: %s", it.toString())
-        })
+        viewModel.getuserRes.observe(this) { response ->
+            when (response) {
+                is Response.Success -> {
+                    response.data.let {
+                        try {
+                            Timber.tag("TAG").e("11111111111111111111: %s", it.toString())
+                            binding.user =     it
+                        } catch (e: Exception) {
+                        }
+                    }
+                }
+
+                is Response.Failure -> {
+
+                  }
+
+                is Response.Loading -> {
+                }
+            }
+        }
         }
     override fun onClick(v: View) {
         when (v.id) {

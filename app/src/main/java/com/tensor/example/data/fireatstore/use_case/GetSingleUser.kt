@@ -6,5 +6,5 @@ import com.tensor.example.data.fireatstore.repository.UserRepository
 class GetSingleUser (
     private val repo: UserRepository
 ) {
-    operator fun invoke(id: String) = repo.getSingleUserFromFireStore(id)
+    suspend operator fun invoke(id: String) = repo.getSingleUserFromFireStore(id)
 }

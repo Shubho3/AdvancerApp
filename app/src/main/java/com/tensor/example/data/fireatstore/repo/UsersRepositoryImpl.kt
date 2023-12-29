@@ -1,11 +1,11 @@
 package com.tensor.example.data.fireatstore.repo
 
+import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import com.tensor.example.data.fireatstore.FireAtStoreConstants.userName
 import com.tensor.example.data.fireatstore.model.Response
 import com.tensor.example.data.fireatstore.model.User
 import com.tensor.example.data.fireatstore.repository.UserRepository
-import com.tensor.example.data.fireatstore.repository.UserResponse
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
@@ -33,31 +33,37 @@ class UsersRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getSingleUserFromFireStore(id: String): UserResponse {
-        val user = User()
-        booksRef.document(id).get().addOnCompleteListener {
+    override suspend fun getSingleUserFromFireStore(id: String) = try {
+        var user = User()
+    /*    booksRef.document(id).get().addOnCompleteListener {
             if (it.isComplete) {
                 val data = it.result
                 if (data != null) {
+                    val data = data.toObject(User::class.java)
                     Timber.tag("TAG").e(
                         "getSingleUserFromFireStore: ${
-                            data.data
+                            data
                         }"
                     )
                     user.id = id
                     user.userName = id
-
-
-                } else {
+                    Response.Success(user)
                 }
-            } else if (it.isCanceled) {
-                Response.Failure(it.exception)
+
+
             }
+        }*/
+        user.let {
 
-
+            var data = booksRef.document(id).get().await().toObject(User::class.java)
+            if (data != null) {
+                Log.e("TAG", "getSingleUserFromFireStore: "+data )
+                user=data
+            };
         }
-        return Response.Success(user)
-
+        Response.Success(user)
+    } catch (e: Exception) {
+        Response.Failure(e)
     }
 
     override suspend fun addUserToFireStore(user: User) = try {

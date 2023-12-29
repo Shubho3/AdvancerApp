@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="clickHandler"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.tensor.example.ui.chat.ChatViewModel" />
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            app:clickHandler="@{clickHandler}"
+            app:isBackBtn="@{false}"
+            app:isMoreIcon="@{false}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toolbarTitle="@{@string/chat}"
+            />
+        <ProgressBar
+            android:layout_below="@id/include_toolbar"
+            android:id="@+id/pbProgress"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_centerHorizontal="true"
+            android:progressTint="@color/white"
+            android:progressBackgroundTint="@color/black"
+            android:secondaryProgressTint="@color/black"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+       />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_recycle_view"
+            android:layout_below="@id/include_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearlayout"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:showUnlessGone="@{viewModel.showShimmer}"
+            tools:listitem="@layout/item_user"
+
+            />
+
+    </RelativeLayout>
+</layout>
