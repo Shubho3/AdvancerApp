@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.tensor.example.ui.chat.ChatViewModel" />
+            type="com.tensor.example.ui.home.friendsList.FriendsViewModel" />
 
         <variable
             name="isLoading"

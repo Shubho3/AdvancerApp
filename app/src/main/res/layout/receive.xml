@@ -5,35 +5,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-        <RelativeLayout
-            android:layout_marginEnd="@dimen/_100sdp"
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_marginEnd="@dimen/_100sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_toRightOf="@id/user"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            app:cardCornerRadius="@dimen/_3sdp"
+            app:cardElevation="@dimen/_3sdp"
+            app:cardUseCompatPadding="false"
+
             >
-            <androidx.cardview.widget.CardView
-                android:layout_toRightOf="@id/user"
-                android:layout_margin="@dimen/_4sdp"
+            <TextView
+                android:id="@+id/receivemessagetext"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/_8sdp"
-                app:cardElevation="@dimen/_1sdp"
-                app:cardUseCompatPadding="false"
-
-                >
-                <TextView
-                    android:id="@+id/receivemessagetext"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/recive_message_box_background"
-                    android:padding="@dimen/_12sdp"
-                    android:text="This is receive message"
-                    android:textColor="@color/white"
-                    android:fontFamily="sans-serif-medium"
-                    android:textSize="@dimen/_15sdp"
-                    />
-            </androidx.cardview.widget.CardView>
+                android:background="@drawable/recive_message_box_background"
+                android:padding="@dimen/_8sdp"
+                android:text="This is receive message"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/_13sdp"
+                />
+        </androidx.cardview.widget.CardView>
 
         <ImageView
             android:visibility="gone"
@@ -45,7 +45,7 @@
             android:layout_margin="@dimen/_2sdp"
             android:layout_alignParentStart="true"/>
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

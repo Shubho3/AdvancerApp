@@ -35,6 +35,7 @@ import com.tensor.example.ui.sample.SampleActivity
 import com.tensor.example.utils.extension.launchActivity
 import com.tensor.example.utils.extension.launchActivityAndFinishAll
 import com.tensor.example.utils.extension.observe
+import com.tensor.example.utils.pref.SharedPrf
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -46,12 +47,14 @@ class ProfileActivity : BaseAppCompatActivity<ActivityProfileBinding, ProfileVie
     private var userx: User? = null
 
     override val viewModel: ProfileViewModel by viewModels()
+    lateinit var  sharedPrf: SharedPrf
 
     override fun getLayoutResId(): Int = R.layout.activity_profile
 
     override fun initialize() {
         super.initialize()
         binding.clickHandler = this
+        sharedPrf= SharedPrf(this)
         if (intent.extras?.containsKey(INTENT_USER) == true) {
             user = intent.extras?.getParcelable(INTENT_USER)
         }
@@ -70,6 +73,7 @@ class ProfileActivity : BaseAppCompatActivity<ActivityProfileBinding, ProfileVie
                     response.data.let {
                         try {
                             Timber.tag("TAG").e("11111111111111111111: %s", it.toString())
+                            sharedPrf.setUser(it,"me")
                             binding.user =     it
                         } catch (e: Exception) {
                         }

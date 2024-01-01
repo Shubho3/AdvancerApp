@@ -4,6 +4,7 @@ plugins {
     kotlin(Plugins.Kotlin.KAPT)
     id(Plugins.HILT)
     id(Plugins.GOOGLE_SERVICES)
+    id("kotlin-parcelize")
 }
 
 apply {
