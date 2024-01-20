@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TensorIotExample</string>
+    <string name="app_name">ByteByByte</string>
     <string name="profile_image_description">Profile Image</string>
 
     <!--Login-->

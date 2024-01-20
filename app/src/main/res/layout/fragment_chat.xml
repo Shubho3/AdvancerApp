@@ -20,7 +20,7 @@
 
     </data>
     <RelativeLayout
-        android:background="@color/colorPrimary"
+        android:background="@drawable/grad_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -81,6 +81,8 @@
                 android:hint="type..."
                 android:fontFamily="sans-serif-condensed"
                 android:background="@null"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:padding="@dimen/_10sdp"
                 android:paddingLeft="10dp" />
 
